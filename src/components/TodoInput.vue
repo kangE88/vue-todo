@@ -25,13 +25,8 @@ export default {
     methods: {
         addTodo: function(){
             console.log(this.newTodoItem);
-            //저장하는로직
-            //저장 후 초기화
-            //this.newTodoItem = '';
             if(this.newTodoItem !== ''){
-                var obj = {completed: false, item: this.newTodoItem};
-                localStorage.setItem(this.newTodoItem, JSON.stringify(obj));
-                //this.newTodoItem = '';
+                this.$emit('addTodoItem', this.newTodoItem);
                 this.clearInput();
             }
 
