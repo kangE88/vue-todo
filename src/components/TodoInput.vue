@@ -12,14 +12,32 @@
             </v-btn>
             -->
         </span>
+<!-- 
+        <button id="show-modal" @click="showModal = true">Show Modal</button> -->
+        <!-- use the modal component, pass in the prop -->
+        <Modal v-if="showModal" @close="showModal = false">
+            <!--
+                you can use custom content here to overwrite
+                default content
+                -->
+            <h3 slot="header">
+                경고
+                <i class="fas fa-times closeModalBtn" @click="showModal = false"></i>
+            </h3>
+            <div slot="body">등록할 일정을 입력하세요.</div>
+            <div slot="footer">Copy right</div>
+        </Modal>
   </div>
 </template>
 
 <script>
+import Modal from './common/Modal.vue'
+
 export default {
     data: function(){
         return {
-            newTodoItem: ""
+            newTodoItem: "",
+            showModal : false
         }
     },
     methods: {
@@ -28,12 +46,16 @@ export default {
             if(this.newTodoItem !== ''){
                 this.$emit('addTodoItem', this.newTodoItem);
                 this.clearInput();
+            }else{
+                this.showModal = !this.showModal;
             }
-
         },
         clearInput: function(){
             this.newTodoItem = '';
         }
+    },
+    components: {
+        Modal: Modal
     }
 }
 </script>
@@ -68,5 +90,8 @@ input {
 .addBtn {
     color: white;
     vertical-align: middle;
+}
+.closeModalBtn {
+    color : #42b983;
 }
 </style>
