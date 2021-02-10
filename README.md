@@ -1,5 +1,7 @@
 # vue-todo
 
+inflearn vue.js 중급
+
 ## Project setup
 ```
 yarn install
