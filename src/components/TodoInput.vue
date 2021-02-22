@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 <template>
   <div class="inputBox shadow">
       <input type="text" v-model="newTodoItem" v-on:keyup.enter="addTodo">
@@ -44,7 +45,9 @@ export default {
         addTodo(){
             console.log(this.newTodoItem);
             if(this.newTodoItem !== ''){
-                this.$emit('addTodoItem', this.newTodoItem);
+                //this.$emit('addTodoItem', this.newTodoItem);
+                const text = this.newTodoItem.trim();
+                this.$store.commit('addOneItem', text);
                 this.clearInput();
             }else{
                 this.showModal = !this.showModal;
