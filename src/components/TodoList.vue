@@ -1,7 +1,8 @@
 <template>
  <div>
   <transition-group name="list" tag="p">
-    <li v-for="(todoItem, index) in propsdata" :key="todoItem.item" class="shadow">
+    <!-- <li v-for="(todoItem, index) in propsdata" :key="todoItem.item" class="shadow"> -->
+    <li v-for="(todoItem, index) in this.$store.state.todoItems" :key="todoItem.item" class="shadow">
       <span>
         <i class="far fa-check-square checkBtn" :class="{ checkBtnCompleted: todoItem.completed }" @click="checkTodo(todoItem, index)">
           <span :class="{ textCompleted: todoItem.completed }">{{ todoItem.item }}</span>
@@ -19,7 +20,7 @@
 
 <script>
 export default {
-  props : ['propsdata'],
+  // props : ['propsdata'],
   /*
   App.vue 로 이동하여 app.vue -> props로 받아옴 
 
@@ -38,7 +39,9 @@ export default {
 
       refactoring App.vue
       */
-      this.$emit('removeItem', todoItem, index);
+      //Vuex store state 데이터로 처리
+      //this.$emit('removeItem', todoItem, index);
+      this.$store.commit('removeOneItem', {todoItem, index});
     },
     checkTodo(todoItem, index){
       /*
@@ -46,7 +49,10 @@ export default {
       */
       //console.log(todoItem, index);
       //localStorage.getItem(index);
-      this.$emit('checkTodo', todoItem, index);
+
+      //vuex store 
+      // this.$emit('checkTodo', todoItem, index);
+      this.$store.commit('toggleOneItem', {todoItem, index});
     }
   },
 }

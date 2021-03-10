@@ -9,7 +9,9 @@ export default {
   methods:{
     clearTodo(){
       // localStorage.clear();
-      this.$emit('clearAll');
+      //vuex 
+      // this.$emit('clearAll');
+      this.$store.commit('clearAllItems');
     }
   }
 
