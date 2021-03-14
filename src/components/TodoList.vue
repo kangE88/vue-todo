@@ -1,13 +1,14 @@
 <template>
  <div>
   <transition-group name="list" tag="ul">
-    <li v-for="(todoItem, index) in this.$store.state.todoItems" :key="todoItem.item" class="shadow">
+    <!-- <li v-for="(todoItem, index) in this.$store.state.todoItems" :key="todoItem.item" class="shadow"> -->
+    <li v-for="(todoItem, index) in this.todoItem" :key="todoItem.item" class="shadow"> <!-- mapGetters this.todoItem -->
       <span>
-        <i class="far fa-check-square checkBtn" :class="{ checkBtnCompleted: todoItem.completed }" @click="checkTodo(todoItem, index)">
+        <i class="far fa-check-square checkBtn" :class="{ checkBtnCompleted: todoItem.completed }" @click="checkTodo({todoItem, index})">
           <span :class="{ textCompleted: todoItem.completed }">{{ todoItem.item }}</span>
         </i>
       </span>
-      <span class="removeBtn" @click="removeTodo(todoItem, index)">
+      <span class="removeBtn" @click="removeTodo({todoItem, index})">
         <i class="far fa-trash-alt"></i>
       </span>
     </li>
@@ -18,6 +19,9 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex'
+
+
 export default {
   //props : ['propsdata'], --> store state todoItems 로 이동 
   /*
@@ -30,7 +34,12 @@ export default {
   },
   */
   methods: {
-    removeTodo(todoItem, index){
+    //vuex mapMutations
+    ...mapMutations ({ 
+      removeTodo : 'removeOneItem', //todoItem, index 인자값은 자동으로 넘어감
+      checkTodo : 'toggleOneItem'
+    }), 
+    //removeTodo(todoItem, index){
       /*
       localStorage.removeItem(todoItem);
       this.todoItems.splice(index, 1);
@@ -38,18 +47,27 @@ export default {
       */
       //this.$emit('removeItem', todoItem, index);
       //vuex 
-      this.$store.commit('removeOneItem', {todoItem, index});
-    },
-    checkTodo(todoItem, index){
+      //this.$store.commit('removeOneItem', {todoItem, index});
+    //},
+    //checkTodo(todoItem, index){
       /*
       refactoring App.vue
       */
       //localStorage.getItem(index);
       //this.$emit('checkTodo', todoItem, index);
       //vuex 
-      this.$store.commit('toggleOneItem', {todoItem, index});
-    }
+      //this.$store.commit('toggleOneItem', {todoItem, index});
+    //}
   },
+  computed: {
+    // todoItems(){
+    //   return this.$store.getters.todoItems;
+    // }
+    
+    //getters used
+    // ...mapGetters(['storedTodoItems'])
+    ...mapGetters({ todoItem : 'storedTodoItems'})
+  }
 }
 </script>
 
