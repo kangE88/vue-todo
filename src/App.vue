@@ -26,7 +26,7 @@ export default {
   //   }
   // },
   //methods: {
-    //mutations
+    // vuex 도입에 따른 store.js mutations에서 진행되도록 수정
     // addOneItem(todoItem){
     //   const obj = { completed: false, item: todoItem }
     //   localStorage.setItem(todoItem, JSON.stringify(obj));
@@ -43,11 +43,12 @@ export default {
     //   localStorage.removeItem(todoItem.item);
     //   localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
     // },
-    //clearAllItems(){
-    //  localStorage.clear();
-    //  this.todoItems = [];
-    //}
+    // clearAllItems(){
+    //   localStorage.clear();
+    //   this.todoItems = [];
+    // }
   //},
+  //store.js 로 이동
   // created(){
   //   if(localStorage.length > 0){
   //     for (let i = 0; i < localStorage.length; i++) {
